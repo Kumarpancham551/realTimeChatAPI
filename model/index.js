@@ -23,6 +23,21 @@ var db ={};
 db.Sequelize= Sequelize,
 db.sequelize=sequelize,
 db.user=require("./user.model")(sequelize,Sequelize);
+db.message = require('./message.model')(sequelize, Sequelize);
+db.group = require('./group.model')(sequelize,Sequelize);
 
+db.user.hasMany(db.message);
+
+db.group.belongsToMany(db.user, {
+    through: "user_groups",
+    foreignKey: "groupId",
+    otherKey: "userId"
+});
+
+db.user.belongsToMany(db.group, {
+    through: "user_groups",
+    foreignKey: "userId",
+    otherKey: "groupId"
+});
 
 module.exports = db;

@@ -13,6 +13,8 @@ db.sequelize.sync({force:true}).then(()=>{
 })
 
 require("./route/user.route")(app);
+require("./route/message.route")(app);
+require("./route/group.route")(app);
 
 app.listen(8080,()=>{
     console.log("App is started ");
